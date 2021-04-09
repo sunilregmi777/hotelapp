@@ -1,22 +1,31 @@
+import {useState} from 'react';
 import { Container } from 'react-bootstrap';
 import {  BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './header.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCoffee, faMapMarkerAlt, faPhoneAlt} from '@fortawesome/free-solid-svg-icons';
+import { faCoffee, faMapMarkerAlt, faPhoneAlt, faBars} from '@fortawesome/free-solid-svg-icons';
 import logo from '../../images/logo.png';
+import MediaQuery from 'react-responsive';
+import classNames from 'classnames';
 
 function Header(){
+	const[showMenu, setShowMenu] = useState(false);
 	return(
-		<Router>
 			<header>
 				<div className="top-header">
 					<Container>
-						<div className="top-header-wrapper">	
-							<div className="header-left">
-								<span><FontAwesomeIcon icon={faMapMarkerAlt} /> Chitlang, Makwanpur</span>
-								<span><FontAwesomeIcon icon={faPhoneAlt} />+977 9813999347</span>
-							</div>
+						<div className="top-header-wrapper">
+							<MediaQuery minWidth={767}>
+						      	{(matches) =>
+						      		 matches ?	
+										<div className="header-left">
+											<span><FontAwesomeIcon icon={faMapMarkerAlt} /> Chitlang, Makwanpur</span>
+											<span><FontAwesomeIcon icon={faPhoneAlt} />+977 9813999347</span>
+										</div>:null
+									
+								}
+							</MediaQuery>
 							<div className="header-right">
 								<ul className="top-menu">
 									<li><a href="#">About</a></li>
@@ -35,20 +44,45 @@ function Header(){
 							<div className="logo">
 								<Link to="/"><img src={logo} alt="logo"/></Link>
 							</div>
-							<nav>
-								<ul>
-									<li><Link to="/">Home</Link></li>
-									<li><a href="#">Rooms</a></li>
-									<li><a href="#">Pages</a></li>
-									<li><a href="#">Galleries</a></li>
-									<li><a href="#">Places</a></li>
-								</ul>
-							</nav>
+							<MediaQuery minWidth={767}>
+						      {(matches) =>
+						      	{
+						      		if(matches){
+						      			return (
+							      			<nav>
+												<ul>
+													<li><Link to="/">Home</Link></li>
+													<li><a href="#">Rooms</a></li>
+													<li><a href="#">Pages</a></li>
+													<li><a href="#">Galleries</a></li>
+													<li><a href="#">Places</a></li>
+												</ul>
+											</nav>
+										)
+						      		}
+						      		else{
+						      			return(
+						      			<>
+							      			<FontAwesomeIcon icon={faBars} onClick={()=>setShowMenu(!showMenu)}/>
+											<div className={classNames("mobile-nav",{"active":showMenu})}>
+												<ul>
+													<li><Link to="/">Home</Link></li>
+													<li><a href="#">Rooms</a></li>
+													<li><a href="#">Pages</a></li>
+													<li><a href="#">Galleries</a></li>
+													<li><a href="#">Places</a></li>
+												</ul>
+											</div>
+										</>
+						      			)
+						      		}
+						        
+						      }}
+						    </MediaQuery>
 						</div>
 					</Container>
 				</div>
 			</header>
-		</Router>
 	);
 }
 export default Header;

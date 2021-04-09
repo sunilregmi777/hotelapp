@@ -1,11 +1,11 @@
 import React, { useState, useRef } from 'react';
-import { AvForm, AvField, Button } from 'availity-reactstrap-validation';
+import { AvForm, AvField } from 'availity-reactstrap-validation';
+import { Button } from "reactstrap";
 
-function LoginCredential(){
 
-  const[email, setEmail] = useState(null);
-  const[password, setPassword] = useState(null);
-  const[confirmPassword, setConfirmPassword] = useState(null);
+function LoginCredential(props) {
+
+
   const formRef = useRef(null);
 
   const handleValidSubmit = (event, values) => {
@@ -14,10 +14,9 @@ function LoginCredential(){
       password: values.password,
       confirmPassword: values.confirmPassword,
     }
-    console.log(register);
-    
-    setEmail(values.email);
-    setPassword(values.password);
+    props.setEmail(values.email);
+    props.setPassword(values.password);
+    props.step(3);
   }
 
   return (
@@ -31,21 +30,21 @@ function LoginCredential(){
           errorMessage="A valid email is required"
           validate={{ required: { value: true } }}
         />
-        <AvField 
-          name="password" 
-          placeholder="Enter Password" 
+        <AvField
+          name="password"
+          placeholder="Enter Password"
           errorMessage="A valid password is required"
-          type="password" 
+          type="password"
           validate={{ required: { value: true } }}
         />
-        <AvField 
-          name="confirmPassword" 
-          placeholder="Re-Enter Password" 
+        <AvField
+          name="confirmPassword"
+          placeholder="Re-Enter Password"
           errorMessage="password not matched"
-          type="password" 
+          type="password"
           validate={{ required: { value: true } }}
         />
-        <Button type="submit" color="primary">Next</Button>
+        <Button type="submit">Next</Button>
       </AvForm>
     </>
   );

@@ -1,11 +1,10 @@
 import React, { useState, useRef } from 'react';
-import { AvForm, AvField, Button } from 'availity-reactstrap-validation';
+import { AvForm, AvField } from 'availity-reactstrap-validation';
+import { Button } from "reactstrap";
 
-function BasicInfo(props){
-
-  const [name, setName] = useState(null);
-  const [address, setAddress] = useState(null);
-  const [phone, setPhone] = useState(null);
+function BasicInfo(props) {
+  console.log(props)
+  
   const formRef = useRef(null);
 
   const handleValidSubmit = (event, values) => {
@@ -14,15 +13,15 @@ function BasicInfo(props){
       address: values.address,
       phone: values.phone,
     }
-    console.log(register);
-    
-    setName(values.name);
-    setAddress(values.address);
-    setPhone(values.phone);
+    props.setName(values.name);
+    props.setAddress(values.address);
+    props.setPhone(values.phone);
+    props.step(2);
   }
 
+
   return (
-    <>  
+    <>
       <h2 className="step-title">Basic Info</h2>
       <AvForm onValidSubmit={handleValidSubmit} ref={formRef}>
         <AvField
@@ -56,7 +55,7 @@ function BasicInfo(props){
             },
           }}
         />
-        <Button type="submit" color="primary">Next</Button>
+        <Button type="submit">Next</Button>
       </AvForm>
     </>
   );

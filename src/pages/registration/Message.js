@@ -1,20 +1,15 @@
 import React, { useState, useRef } from 'react';
-import { AvForm, AvField, Button } from 'availity-reactstrap-validation';
+import { AvForm, AvField } from 'availity-reactstrap-validation';
+import { Button} from "reactstrap";
 
-function Message(){
+function Message(props){
 
-  const[message, setMessage] = useState(null);
   const formRef = useRef(null);
 
   const handleValidSubmit = (event, values) => {
-    let register = {
-      message: values.message,
-    }
-    console.log(register);
-    
-    setMessage(values.message);
+    props.setMessage(values.message);
+    props.register();
   }
-
   return (
     <>
       <h2 className="step-title">Say Something</h2>
@@ -26,7 +21,7 @@ function Message(){
           type="textarea" 
           validate={{ required: { value: false } }}
         />
-        <Button type="submit" color="primary">Submit</Button>
+        <Button type="submit">Submit</Button>
       </AvForm>
     </>
   );

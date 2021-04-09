@@ -76,10 +76,11 @@
       outline: 2px solid #febb02;
       box-shadow: 0 0 0 .2rem #febb027a;
     }
-    .card-button .btn{
+    button{
       background-color:#febb02;
       color: #fff;
       border-color:#febb02;
+      float: right;
     }
   }
   .reg-img{
